@@ -1,0 +1,556 @@
+{% extends "main/user_navbar.html" %}
+{% load static %}
+{% block content %}
+<!--Main container start -->
+	<main class="ttr-wrapper">
+		<div class="container-fluid">
+			<div class="db-breadcrumb">
+				<h4 class="breadcrumb-title">Courses</h4>
+				<ul class="db-breadcrumb-list">
+					<li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+				</ul>
+			</div>	
+			<div class="row">
+				<!-- Your Profile Views Chart -->
+				<div class="col-lg-12 m-b30">
+					<div class="widget-box">
+						<div class="wc-title">
+							<h4>Courses For You</h4>
+						</div>
+						<div class="widget-inner">
+						{% for course in courses %}
+							<div class="card-courses-list admin-courses">
+							
+								<div class="card-courses-media">
+								<a href="{% url "course_detail" course.id %}">
+									<img src="{{ course.image.url }}" alt=""/>
+								</a>
+								</div>
+								<div class="card-courses-full-dec">
+									<div class="card-courses-title">
+									<a href="{% url "course_detail" course.id %}">
+										<h4>{{ course.name }}</h4>
+									</a>
+									</div>
+									<div class="card-courses-list-bx">
+										<ul class="card-courses-view">
+											<li class="card-courses-user">
+												<div class="card-courses-user-pic">
+									    		<a href="#">	
+													<img src="{{ course.teacher.avatar.url }}" alt=""/>
+												</a>
+												</div>
+												<div class="card-courses-user-info">
+													<h5>Teacher</h5>
+													<h4>{{ course.teacher.last_name }} {{ course.teacher.first_name }}</h4>
+												</div>
+											</li>
+											<li class="card-courses-categories">
+											
+												<h5>{{ category.count }} Categories</h5>
+											
+												{% for category in course.category.all|slice:1 %}
+												<h4>{{ category.name|upper }}</h4>
+												{% endfor %}
+											</li>
+											<li class="card-courses-review">
+												<h5>3 Review</h5>
+												<ul class="cours-star">
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+												</ul>
+											</li>
+											<li class="card-courses-stats">
+												<a href="#" class="btn button-sm green radius-xl">Pending</a>
+											</li>
+											<li class="card-courses-price">
+												<del>${{ course.old_price }}</del>
+												<h5 class="text-primary">${{ course.new_price }}</h5>
+											</li>
+										</ul>
+									</div>
+									<div class="row card-courses-dec">
+										<div class="col-md-12">
+											<h6 class="m-b10">Course Description</h6>
+											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
+										</div>
+										<div class="col-md-12">
+											<a href="#" class="btn green radius-xl outline">View</a>
+											<a href="#" class="btn red outline radius-xl ">Cancel</a>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+				<!-- Your Profile Views Chart END-->
+			</div>
+		</div>
+	</main>
+	<div class="ttr-overlay"></div>
+	
+	<div class="section-area section-sp2">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center heading-bx">
+							<h2 class="title-head m-b0">Upcoming <span>Events</span></h2>
+							<p class="m-b0">Upcoming Education Events To Feed Brain. </p>
+						</div>
+					</div>
+					<div class="row">
+					<div class="upcoming-event-carousel owl-carousel owl-btn-center-lr owl-btn-1 col-12 p-lr0  m-b30">
+					{% for event in events %}
+						<div class="item">
+							<div class="event-bx">
+								<div class="action-box">
+									<img src="{{ event.image.url }}" alt="">
+								</div>
+								<div class="info-bx d-flex">
+									<div>
+										<div class="event-time">
+											<div class="event-date">{{ event.date|date:"d" }}</div>
+											<div class="event-month">{{ event.date|date:"F"|upper }}</div>
+										</div>
+									</div>
+									<div class="event-info">
+										<h4 class="event-title"><a href="{% url "event_detail" event.slug %}">{{ event.event_name|title }}</a></h4>
+										<ul class="media-post">
+											<li><a href="{% url "event_detail" event.slug %}"><i class="fa fa-clock-o"></i>{{ event.time_from|time:"g : iA" }} - {{ event.time_to|time:"g : iA" }}</a></li>
+											<li><a href="{% url "event_detail" event.slug %}"><i class="fa fa-map-marker"></i>{{ event.location }}</a></li>
+										</ul>
+										{{ event.description|linebreaks|truncatewords:30 }}
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+					</div>
+					<div class="text-center">
+						<a href="#" class="btn">View All Event</a>
+					</div>
+				</div>
+			</div>
+			
+			<!--Main container start -->
+	<main class="ttr-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Your Profile Views Chart -->
+				<div class="col-lg-12 m-b30">
+					<div class="widget-box">
+						<div class="widget-inner">
+						{% for course in courses|slice:15 %}
+							<div class="card-courses-list admin-courses">
+								<div class="card-courses-media">
+								<a href="{% url "course_detail" course.id %}">
+									<img src="{{ course.image.url }}" alt=""/>
+								</a>
+								</div>
+								<div class="card-courses-full-dec">
+								<a href="{% url "course_detail" course.id %}">
+									<div class="card-courses-title">
+										<h4>{{ course.name }}</h4>
+									</div>
+									</a>
+									<div class="card-courses-list-bx">
+										<ul class="card-courses-view">
+											<li class="card-courses-user">
+												<div class="card-courses-user-pic">
+													<img src="{{ course.teacher.avatar.url }}" alt=""/>
+												</div>
+												<div class="card-courses-user-info">
+													<h5>Teacher</h5>
+													<h4>{{ course.teacher.last_name }} {{ course.teacher.first_name }}</h4>
+												</div>
+											</li>
+											<li class="card-courses-categories">
+											
+												<h5>{{ category.count }} Categories</h5>
+											
+												{% for category in course.category.all|slice:1 %}
+												<h4>{{ category.name|upper }}</h4>
+												{% endfor %}
+											</li>
+											<li class="card-courses-review">
+												<h5>3 Review</h5>
+												<ul class="cours-star">
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+												</ul>
+											</li>
+											<li class="card-courses-stats">
+												<a href="#" class="btn button-sm green radius-xl">Pending</a>
+											</li>
+											<li class="card-courses-price">
+												<del>${{ course.old_price }}</del>
+												<h5 class="text-primary">${{ course.new_price }}</h5>
+											</li>
+										</ul>
+									</div>
+									<div class="row card-courses-dec">
+										<div class="col-md-12">
+											<h6 class="m-b10">Course Description</h6>
+											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
+										</div>
+										<div class="col-md-12">
+											<a href="#" class="btn green radius-xl outline">Approve</a>
+											<a href="#" class="btn red outline radius-xl ">Cancel</a>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+				<!-- Your Profile Views Chart END-->
+			</div>
+		</div>
+	</main>
+	<div class="ttr-overlay"></div>
+	
+	<!-- Popular Courses -->
+			<div class="section-area section-sp2 popular-courses-bx">
+                <div class="container">
+					<div class="row">
+						<div class="col-md-12 heading-bx left">
+							<h2 class="title-head">Highest <span>Rated Courses</span></h2>
+							<p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+						</div>
+					</div>
+					<div class="row">
+					<div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+					{% for course in courses %}
+						<div class="item">
+							<div class="cours-bx">
+								<div class="action-box">
+									<img src="{{ course.image.url }}" alt="">
+									<a href="{% url "course_detail" course.id %}" class="btn">Read More</a>
+								</div>
+								<div class="info-bx text-center">
+									<h5><a href="{% url "course_detail" course.id %}">{{ course.name|title }} – LMS plugin</a></h5>
+									<span>{{ course.category.name }}</span>
+								</div>
+								<div class="cours-more-info">
+									<div class="review">
+										<span>3 Review</span>
+										<ul class="cours-star">
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
+									<div class="price">
+										<del>${{ course.old_price }}</del>
+										<h5>${{ course.new_price }}</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+					</div>
+					<div class="text-center">
+						<a href="#" class="btn">View All</a>
+					</div>
+				</div>
+			</div>
+			<!-- Popular Courses END -->
+			
+			
+			<!--Main container start -->
+	<main class="ttr-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Your Profile Views Chart -->
+				<div class="col-lg-12 m-b30">
+					<div class="widget-box">
+						<div class="widget-inner">
+						{% for course in courses|slice:15 %}
+							<div class="card-courses-list admin-courses">
+								<div class="card-courses-media">
+								<a href="{% url "course_detail" course.id %}">
+									<img src="{{ course.image.url }}" alt=""/>
+								</a>
+								</div>
+								<div class="card-courses-full-dec">
+								<a href="{% url "course_detail" course.id %}">
+									<div class="card-courses-title">
+										<h4>{{ course.name }}</h4>
+									</div>
+								</a>
+									<div class="card-courses-list-bx">
+										<ul class="card-courses-view">
+											<li class="card-courses-user">
+												<div class="card-courses-user-pic">
+													<img src="{{ course.teacher.avatar.url }}" alt=""/>
+												</div>
+												<div class="card-courses-user-info">
+													<h5>Teacher</h5>
+													<h4>{{ course.teacher.last_name }} {{ course.teacher.first_name }}</h4>
+												</div>
+											</li>
+											<li class="card-courses-categories">
+											
+												<h5>{{ category.count }} Categories</h5>
+											
+												{% for category in course.category.all|slice:1 %}
+												<h4>{{ category.name|upper }}</h4>
+												{% endfor %}
+											</li>
+											<li class="card-courses-review">
+												<h5>3 Review</h5>
+												<ul class="cours-star">
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li class="active"><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+													<li><i class="fa fa-star"></i></li>
+												</ul>
+											</li>
+											<li class="card-courses-stats">
+												<a href="#" class="btn button-sm green radius-xl">Pending</a>
+											</li>
+											<li class="card-courses-price">
+												<del>${{ course.old_price }}</del>
+												<h5 class="text-primary">${{ course.new_price }}</h5>
+											</li>
+										</ul>
+									</div>
+									<div class="row card-courses-dec">
+										<div class="col-md-12">
+											<h6 class="m-b10">Course Description</h6>
+											<p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae, pro detracto disputando reformidans at, ex vel suas eripuit. Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit te possit senserit, eam alia veritus maluisset ei, id cibo vocent ocurreret per. Te qui doming doctus referrentur, usu debet tamquam et. Sea ut nullam aperiam, mei cu tollit salutatus delicatissimi. </p>	
+										</div>
+										<div class="col-md-12">
+											<a href="#" class="btn green radius-xl outline">Approve</a>
+											<a href="#" class="btn red outline radius-xl ">Cancel</a>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+				<!-- Your Profile Views Chart END-->
+			</div>
+		</div>
+	</main>
+	<div class="ttr-overlay"></div>
+			
+	<!-- Recent News -->
+			<div class="section-area section-sp2">
+                <div class="container">
+					<div class="row">
+						<div class="col-md-12 heading-bx left">
+							<h2 class="title-head">Recent <span>News</span></h2>
+							<p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+						</div>
+					</div>
+					<div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+						<div class="item">
+							<div class="recent-news">
+								<div class="action-box">
+									<img src="{% static "assets/images/blog/latest-blog/pic1.jpg" %}" alt="">
+								</div>
+								<div class="info-bx">
+									<ul class="media-post">
+										<li><a href="#"><i class="fa fa-calendar"></i>Jan 02 2019</a></li>
+										<li><a href="#"><i class="fa fa-user"></i>By William</a></li>
+									</ul>
+									<h5 class="post-title"><a href="blog-details.html">This Story Behind Education Will Haunt You Forever.</a></h5>
+									<p>Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
+									<div class="post-extra">
+										<a href="#" class="btn-link">READ MORE</a>
+										<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>20 Comment</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="recent-news">
+								<div class="action-box">
+									<img src="{% static "assets/images/blog/latest-blog/pic2.jpg" %}" alt="">
+								</div>
+								<div class="info-bx">
+									<ul class="media-post">
+										<li><a href="#"><i class="fa fa-calendar"></i>Feb 05 2019</a></li>
+										<li><a href="#"><i class="fa fa-user"></i>By John</a></li>
+									</ul>
+									<h5 class="post-title"><a href="blog-details.html">What Will Education Be Like In The Next 50 Years?</a></h5>
+									<p>As desperate as you are right now, you have done everything you can on your.</p>
+									<div class="post-extra">
+										<a href="#" class="btn-link">READ MORE</a>
+										<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>14 Comment</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="recent-news">
+								<div class="action-box">
+									<img src="{% static "assets/images/blog/latest-blog/pic3.jpg" %}" alt="">
+								</div>
+								<div class="info-bx">
+									<ul class="media-post">
+										<li><a href="#"><i class="fa fa-calendar"></i>April 14 2019</a></li>
+										<li><a href="#"><i class="fa fa-user"></i>By George</a></li>
+									</ul>
+									<h5 class="post-title"><a href="blog-details.html">Master The Skills Of Education And Be.</a></h5>
+									<p>You will see in the guide all my years of valuable experience together with.</p>
+									<div class="post-extra">
+										<a href="#" class="btn-link">READ MORE</a>
+										<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>23 Comment</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Recent News End -->
+			<footer>
+        <div class="footer-top">
+			<div class="pt-exebar">
+				<div class="container">
+					<div class="d-flex align-items-stretch">
+						<div class="pt-logo mr-auto">
+							<a href="index.html"><img src="{% static "assets/images/logo-white.png" %}" alt=""/></a>
+						</div>
+						<div class="pt-social-link">
+							<ul class="list-inline m-a0">
+								<li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+						<div class="pt-btn-join">
+							<a href="#" class="btn ">Join Now</a>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="container">
+                <div class="row">
+					<div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
+                        <div class="widget">
+                            <h5 class="footer-title">Sign Up For A Newsletter</h5>
+							<p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
+                            <div class="subscribe-form m-b20">
+								<form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
+									<div class="ajax-message"></div>
+									<div class="input-group">
+										<input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
+										<span class="input-group-btn">
+											<button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
+										</span> 
+									</div>
+								</form>
+							</div>
+                        </div>
+                    </div>
+					<div class="col-12 col-lg-5 col-md-7 col-sm-12">
+						<div class="row">
+							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
+								<div class="widget footer_widget">
+									<h5 class="footer-title">Company</h5>
+									<ul>
+										<li><a href="index.html">Home</a></li>
+										<li><a href="about-1.html">About</a></li>
+										<li><a href="faq-1.html">FAQs</a></li>
+										<li><a href="contact-1.html">Contact</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
+								<div class="widget footer_widget">
+									<h5 class="footer-title">Get In Touch</h5>
+									<ul>
+										<li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
+										<li><a href="blog-classic-grid.html">Blog</a></li>
+										<li><a href="portfolio.html">Portfolio</a></li>
+										<li><a href="event.html">Event</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-4 col-lg-4 col-md-4 col-sm-4">
+								<div class="widget footer_widget">
+									<h5 class="footer-title">Courses</h5>
+									<ul>
+										<li><a href="courses.html">Courses</a></li>
+										<li><a href="courses-details.html">Details</a></li>
+										<li><a href="membership.html">Membership</a></li>
+										<li><a href="profile.html">Profile</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+                    </div>
+					<div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
+                        <div class="widget widget_gallery gallery-grid-4">
+                            <h5 class="footer-title">Our Gallery</h5>
+                            <ul class="magnific-image">
+								<li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic1.jpg" %}" alt=""></a></li>
+								<li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic2.jpg" %}" alt=""></a></li>
+								<li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic3.jpg" %}" alt=""></a></li>
+								<li><a href="{% static "assets/images/gallery/pic4.jpg" %}" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic4.jpg" %}" alt=""></a></li>
+								<li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic5.jpg" %}" alt=""></a></li>
+								<li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic6.jpg" %}" alt=""></a></li>
+								<li><a href="{% static "assets/images/gallery/pic7.jpg" %}" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic7.jpg" %}" alt=""></a></li>
+								<li><a href="{% static "assets/images/gallery/pic8.jpg" %}" class="magnific-anchor"><img src="{% static "assets/images/gallery/pic8.jpg" %}" alt=""></a></li>
+							</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer END ==== -->
+    <button class="back-to-top fa fa-chevron-up" ></button>
+</div>
+
+
+<script src="{% static "new/js/jquery.min.js" %}"></script>
+<script src="{% static "new/vendors/bootstrap/js/popper.min.js" %}"></script>
+<script src="{% static "new/vendors/bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="{% static "new/vendors/bootstrap-select/bootstrap-select.min.js" %}"></script>
+<script src="{% static "new/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js" %}"></script>
+<script src="{% static "new/vendors/magnific-popup/magnific-popup.js" %}"></script>
+<script src="{% static "new/vendors/counter/waypoints-min.js" %}"></script>
+<script src="{% static "new/vendors/counter/counterup.min.js" %}"></script>
+<script src="{% static "new/vendors/imagesloaded/imagesloaded.js" %}"></script>
+<script src="{% static "new/vendors/masonry/masonry.js" %}"></script>
+<script src="{% static "new/vendors/masonry/filter.js" %}"></script>
+<script src="{% static "new/vendors/owl-carousel/owl.carousel.js" %}"></script>
+<script src='{% static 'new/vendors/scroll/scrollbar.min.js' %}'></script>
+<script src="{% static "new/js/functions.js" %}"></script>
+<script src="{% static "new/vendors/chart/chart.min.js" %}"></script>
+<script src="{% static "new/js/admin.js" %}"></script>
+<script src='{% static 'new/vendors/switcher/switcher.js' %}'></script>
+{% endblock %}
